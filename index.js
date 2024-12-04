@@ -26,10 +26,16 @@ async function run() {
     await client.connect();
     const ratedCollection = client.db("ratedDB").collection("rated");
     const userCollection = client.db("ratedDB").collection("users");
+    const trendingCollection = client.db("ratedDB").collection("trending");
 
     await client.db("admin").command({ ping: 1 });
     app.get("/", async (req, res) => {
       const cursor = ratedCollection.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+    app.get("/trending", async (req, res) => {
+      const cursor = trendingCollection.find();
       const result = await cursor.toArray();
       res.send(result);
     });
@@ -44,5 +50,5 @@ async function run() {
 run().catch(console.dir);
 
 app.listen(port, () => {
-  console.log(`COffee is getting warmer in port: ${port}`);
+  console.log(`assignment is getting warmer in port: ${port}`);
 });
