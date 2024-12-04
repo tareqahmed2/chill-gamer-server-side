@@ -70,12 +70,32 @@ async function run() {
         .toArray();
       res.send(result);
     });
+    app.put("/updateReview/:id", async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id) };
+      const options = { upsert: true };
+      const updatedReview = req.body;
+      const review = {
+        $set: {
+          cover: updatedReview.cover,
+          title: updatedReview.title,
+          desc: updatedReview.desc,
+          rating: updatedReview.rating,
+          publishingYear: updatedReview.publishingYear,
+          genre: updatedReview.genre,
+          email: updatedReview.email,
+        },
+      };
+      const result = await reviewCollection.updateOne(filter, review, options);
+      res.send(result);
+    });
     app.delete("/deleteReview/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
       const result = await reviewCollection.deleteOne(query);
       res.send(result);
     });
+
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!"
     );
