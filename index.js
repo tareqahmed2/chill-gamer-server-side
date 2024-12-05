@@ -35,6 +35,12 @@ async function run() {
       const result = await cursor.toArray();
       res.send(result);
     });
+    app.get("/highRatedCardDetails/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await ratedCollection.findOne(query);
+      res.send(result);
+    });
     app.get("/trending", async (req, res) => {
       const cursor = trendingCollection.find();
       const result = await cursor.toArray();
@@ -63,7 +69,14 @@ async function run() {
       const result = await watchListCollection.insertOne(newWatchList);
       res.send(result);
     });
-    app.get("/myReview/:email", async (req, res) => {
+    app.get("/watchList/:email", async (req, res) => {
+      const userEmail = req.params.email;
+      const result = await watchListCollection
+        .find({ email: userEmail })
+        .toArray();
+      res.send(result);
+    });
+    app.get("/myReviews/:email", async (req, res) => {
       const userEmail = req.params.email;
       const result = await reviewCollection
         .find({ email: userEmail })
