@@ -42,6 +42,11 @@ async function run() {
       const result = await ratedCollection.findOne(query);
       res.send(result);
     });
+    app.get("/developers", async (req, res) => {
+      const cursor = developersCollection.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    });
     app.get("/trending", async (req, res) => {
       const cursor = trendingCollection.find();
       const result = await cursor.toArray();
