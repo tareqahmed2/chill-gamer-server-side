@@ -29,6 +29,7 @@ async function run() {
     const trendingCollection = client.db("ratedDB").collection("trending");
     const reviewCollection = client.db("ratedDB").collection("reviews");
     const watchListCollection = client.db("ratedDB").collection("watchList");
+    const developersCollection = client.db("ratedDB").collection("developers");
     await client.db("admin").command({ ping: 1 });
     app.get("/", async (req, res) => {
       const cursor = ratedCollection.find();
@@ -71,9 +72,13 @@ async function run() {
     });
     app.get("/watchList/:email", async (req, res) => {
       const userEmail = req.params.email;
+      console.log(userEmail);
       const result = await watchListCollection
-        .find({ email: userEmail })
+        .find({
+          userEmail: userEmail,
+        })
         .toArray();
+      console.log(result);
       res.send(result);
     });
     app.get("/myReviews/:email", async (req, res) => {
