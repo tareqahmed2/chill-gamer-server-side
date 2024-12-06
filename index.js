@@ -31,7 +31,7 @@ async function run() {
     const watchListCollection = client.db("ratedDB").collection("watchList");
     const developersCollection = client.db("ratedDB").collection("developers");
     await client.db("admin").command({ ping: 1 });
-    app.get("/", async (req, res) => {
+    app.get("/highRated", async (req, res) => {
       const cursor = ratedCollection.find();
       const result = await cursor.toArray();
       res.send(result);
