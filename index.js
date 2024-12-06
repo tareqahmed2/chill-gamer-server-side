@@ -23,7 +23,7 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
+    // await client.connect();
     const ratedCollection = client.db("ratedDB").collection("rated");
     const userCollection = client.db("ratedDB").collection("users");
     const trendingCollection = client.db("ratedDB").collection("trending");
@@ -54,7 +54,6 @@ async function run() {
     });
     app.post("/reviews", async (req, res) => {
       const newReview = req.body;
-      console.log(newReview);
       const result = await reviewCollection.insertOne(newReview);
       res.send(result);
     });
@@ -77,13 +76,11 @@ async function run() {
     });
     app.get("/watchList/:email", async (req, res) => {
       const userEmail = req.params.email;
-      console.log(userEmail);
       const result = await watchListCollection
         .find({
           userEmail: userEmail,
         })
         .toArray();
-      console.log(result);
       res.send(result);
     });
     app.get("/myReviews/:email", async (req, res) => {
@@ -119,9 +116,9 @@ async function run() {
       res.send(result);
     });
 
-    console.log(
-      "Pinged your deployment. You successfully connected to MongoDB!"
-    );
+    // console.log(
+    //   "Pinged your deployment. You successfully connected to MongoDB!"
+    // );
   } finally {
     // Ensures that the client will close when you finish/error
     // await client.close();
