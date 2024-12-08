@@ -31,7 +31,7 @@ async function run() {
     const reviewCollection = client.db("ratedDB").collection("reviews");
     const watchListCollection = client.db("ratedDB").collection("watchList");
     const developersCollection = client.db("ratedDB").collection("developers");
-    await client.db("admin").command({ ping: 1 });
+    // await client.db("admin").command({ ping: 1 });
     app.get("/highRated", async (req, res) => {
       const cursor = ratedCollection.find();
       const result = await cursor.toArray();
