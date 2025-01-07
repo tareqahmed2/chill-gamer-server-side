@@ -30,6 +30,7 @@ async function run() {
     const trendingCollection = client.db("ratedDB").collection("trending");
     const reviewCollection = client.db("ratedDB").collection("reviews");
     const watchListCollection = client.db("ratedDB").collection("watchList");
+    const upcomingCollection = client.db("ratedDB").collection("upcoming");
     const developersCollection = client.db("ratedDB").collection("developers");
     // await client.db("admin").command({ ping: 1 });
     app.get("/highRated", async (req, res) => {
@@ -58,6 +59,18 @@ async function run() {
       const result = await reviewCollection.insertOne(newReview);
       res.send(result);
     });
+    app.get("/reviews", async (req, res) => {
+      const cursor = reviewCollection.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+    // upcoming
+    app.get("/upcoming", async (req, res) => {
+      const cursor = upcomingCollection.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+
     app.get("/reviews", async (req, res) => {
       const cursor = reviewCollection.find();
       const result = await cursor.toArray();
