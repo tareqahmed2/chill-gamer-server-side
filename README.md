@@ -4,7 +4,7 @@ Welcome to the backend of **Chill Gamer**, a user-friendly game review platform 
 
 ## Live API
 
-- **API Documentation**: [Chill Gamer API](https://assignment-10-uupdate.vercel.app)
+- **API Documentation**: [Chill Gamer API](https://assignment-10-uupdate.vercel.app/reviews)
 
 ---
 
